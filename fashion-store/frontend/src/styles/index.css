@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #171312;
+  background: #fffaf4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-[#171312] text-white hover:bg-[#ef5b5b];
+}
+
+.btn-secondary {
+  @apply border border-[#ddd1c6] bg-white/80 text-[#171312] hover:border-[#efc9c3] hover:bg-white;
+}
+
+.btn-danger {
+  @apply bg-[#ef5b5b] text-white hover:bg-[#d94d4d];
+}
+
+.card {
+  @apply rounded-[1.75rem] border border-white/70 bg-white/90 p-6 shadow-[0_24px_80px_-58px_rgba(69,43,27,0.55)];
+}
+
+.input {
+  @apply w-full rounded-2xl border border-[#ddd1c6] bg-white/90 px-4 py-3 text-[#171312] outline-none transition focus:border-[#efc9c3] focus:ring-0;
+}
+
+.text-error {
+  @apply text-[#d94d4d];
+}
+
+.text-success {
+  @apply text-[#3f8b59];
+}
