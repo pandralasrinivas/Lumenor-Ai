@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const connectDB = require("./config/database");
 const errorHandler = require("./middleware/errorHandler");
@@ -28,9 +29,21 @@ app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Server is running" });
 });
 app.use(errorHandler);
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
-});
+// Serve frontend in production and fallback to index.html for client-side routing
+if (process.env.NODE_ENV === "production") {
+  const buildPath = path.join(__dirname, "..", "..", "frontend", "build");
+  app.use(express.static(buildPath));
+
+  // Send index.html for all non-API GET requests (let API routes continue to 404 normally)
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(buildPath, "index.html"));
+  });
+} else {
+  app.use((req, res) => {
+    res.status(404).json({ success: false, message: "Route not found" });
+  });
+}
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
