@@ -3,19 +3,12 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     console.log("Attempting to connect to MongoDB Atlas...");
-    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
-
-    if (!mongoUri) {
-      console.error("MongoDB connection string is not set. Please provide MONGODB_URI in your .env file.");
-      process.exit(1);
-    }
-
     console.log(
       "Connection String:",
-      (mongoUri.includes("?") ? mongoUri.split("?")[0] + "?***" : mongoUri),
+      process.env.MONGODB_URI.split("?")[0] + "?***",
     );
 
-    const conn = await mongoose.connect(mongoUri, {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 5000,
