@@ -87,15 +87,15 @@ const Footer = () => {
             <ul className="mt-5 space-y-4 text-sm text-white/[0.65]">
               <li className="flex items-start gap-3">
                 <Mail size={18} className="mt-0.5 text-[#ef5b5b]" />
-                <span>info@fashionstore.com</span>
+                <span>info@styleup.com</span>
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={18} className="mt-0.5 text-[#ef5b5b]" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 98765 43210</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="mt-0.5 text-[#ef5b5b]" />
-                <span>123 Fashion St, New York, NY 10001</span>
+                <span>Hyderabad,Telanagana,India</span>
               </li>
             </ul>
 
@@ -113,7 +113,9 @@ const Footer = () => {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/[0.45] sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 StyleUp. Crafted for modern fashion storefronts.</p>
-          <p>Responsive landing page experience built with React and Tailwind.</p>
+          <p>
+            Responsive landing page experience built with React and Tailwind.
+          </p>
         </div>
       </div>
     </footer>
