@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_URL =
+  process.env.REACT_APP_API_URL || "https://lumenor-ai.onrender.com/api";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -94,7 +95,8 @@ export const adminAPI = {
   restoreProduct: (id) => api.patch(`/admin/products/${id}/restore`),
   getOrders: (params) => api.get("/admin/orders", { params }),
   getOrderById: (id) => api.get(`/admin/orders/${id}`),
-  updateOrderStatus: (id, data) => api.patch(`/admin/orders/${id}/status`, data),
+  updateOrderStatus: (id, data) =>
+    api.patch(`/admin/orders/${id}/status`, data),
 };
 
 export const reviewAPI = {
