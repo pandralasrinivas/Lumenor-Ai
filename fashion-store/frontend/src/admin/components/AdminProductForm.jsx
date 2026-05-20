@@ -8,12 +8,40 @@ const createBlankVariant = () => ({
   sizes: [{ size: "", stock: 0 }],
 });
 
+const getInitialDiscountPercent = (product) => {
+  const price = Number(product?.price || 0);
+  const discountPrice = Number(product?.discountPrice || 0);
+
+  if (!price || !discountPrice || discountPrice >= price) {
+    return "";
+  }
+
+  return String(Math.round(((price - discountPrice) / price) * 100));
+};
+
+const calculateDiscountPrice = (price, discountPercent) => {
+  const normalizedPrice = Number(price);
+  const normalizedPercent = Number(discountPercent);
+
+  if (
+    !Number.isFinite(normalizedPrice) ||
+    normalizedPrice <= 0 ||
+    !Number.isFinite(normalizedPercent) ||
+    normalizedPercent <= 0
+  ) {
+    return undefined;
+  }
+
+  const clampedPercent = Math.min(normalizedPercent, 100);
+  return Number((normalizedPrice * (1 - clampedPercent / 100)).toFixed(2));
+};
+
 const createInitialState = (product) => ({
   name: product?.name || "",
   description: product?.description || "",
   category: product?.category || "Men",
   price: product?.price ?? "",
-  discountPrice: product?.discountPrice ?? "",
+  discountPercent: getInitialDiscountPercent(product),
   isActive: typeof product?.isActive === "boolean" ? product.isActive : true,
   images: product?.images?.length ? product.images : [""],
   variants: product?.variants?.length
@@ -49,6 +77,12 @@ const AdminProductForm = ({
     () => formState.images.map((image) => image.trim()).filter(Boolean),
     [formState.images],
   );
+  const calculatedDiscountPrice = useMemo(
+    () => calculateDiscountPrice(formState.price, formState.discountPercent),
+    [formState.discountPercent, formState.price],
+  );
+  const normalizedPrice = Number(formState.price || 0);
+  const normalizedDiscountPercent = Number(formState.discountPercent || 0);
 
   if (!isOpen) {
     return null;
@@ -164,12 +198,12 @@ const AdminProductForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const { discountPercent, ...restFormState } = formState;
 
     const payload = {
-      ...formState,
-      price: Number(formState.price),
-      discountPrice:
-        formState.discountPrice === "" ? undefined : Number(formState.discountPrice),
+      ...restFormState,
+      price: normalizedPrice,
+      discountPrice: calculatedDiscountPrice,
       images: formState.images.map((image) => image.trim()).filter(Boolean),
       variants: formState.variants
         .map((variant) => ({
@@ -258,16 +292,43 @@ const AdminProductForm = ({
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#171312]">
-                Discount Price
+                Discount Percentage
               </label>
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                value={formState.discountPrice}
-                onChange={(event) => updateField("discountPrice", event.target.value)}
-                className="w-full rounded-2xl border border-[#ddd1c6] bg-white px-4 py-3 text-[#171312] outline-none transition focus:border-[#efc9c3]"
-              />
+              <div className="space-y-3">
+                <div className="relative">
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={formState.discountPercent}
+                    onChange={(event) =>
+                      updateField("discountPercent", event.target.value)
+                    }
+                    className="w-full rounded-2xl border border-[#ddd1c6] bg-white px-4 py-3 pr-12 text-[#171312] outline-none transition focus:border-[#efc9c3]"
+                    placeholder="20"
+                  />
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-[#8a7767]">
+                    %
+                  </span>
+                </div>
+                <div className="rounded-2xl border border-[#eaded1] bg-[#fffaf5] px-4 py-3 text-sm text-[#746960]">
+                  {calculatedDiscountPrice !== undefined &&
+                  normalizedDiscountPercent > 0 &&
+                  normalizedPrice > 0 ? (
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <span>
+                        Sale price auto-calculated from {normalizedDiscountPercent}% off
+                      </span>
+                      <span className="font-semibold text-[#171312]">
+                        ${calculatedDiscountPrice.toFixed(2)}
+                      </span>
+                    </div>
+                  ) : (
+                    <span>No discount applied. The storefront will use the regular price.</span>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="lg:col-span-2">
