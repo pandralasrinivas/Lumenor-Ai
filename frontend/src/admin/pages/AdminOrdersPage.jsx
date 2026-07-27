@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ArrowRight, RefreshCcw, Search } from "lucide-react";
 import { adminAPI } from "../../utils/api";
+import { formatINR } from "../../utils/productPresentation";
 
 const statusOptions = ["all", "pending", "confirmed", "shipped", "delivered", "cancelled"];
 const paymentOptions = ["all", "pending", "completed", "failed"];
@@ -161,7 +162,7 @@ const AdminOrdersPage = () => {
 
                   <div className="flex flex-wrap items-center gap-3">
                     <p className="text-2xl font-semibold text-[#171312]">
-                      ${Number(order.totalAmount || 0).toFixed(2)}
+                      {formatINR(order.totalAmount)}
                     </p>
                     <Link
                       to={`/store/admin/orders/${order._id}`}

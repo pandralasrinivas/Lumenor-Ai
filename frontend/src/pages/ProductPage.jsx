@@ -28,6 +28,7 @@ import {
   getColorSwatch,
   getDiscountPercent,
   getDisplayPrice,
+  formatINR,
   getProductColors,
   getProductSizes,
   sortSizes,
@@ -39,7 +40,7 @@ const perks = [
   {
     icon: Truck,
     title: "Free Shipping",
-    copy: "On orders over $99",
+    copy: "On orders over ₹999",
   },
   {
     icon: RotateCcw,
@@ -141,7 +142,7 @@ const RelatedProductCard = ({ product }) => {
         </div>
 
         <p className="mt-3 text-xl font-bold text-[#171312]">
-          ${displayPrice.toFixed(2)}
+          {formatINR(displayPrice)}
         </p>
       </div>
     </Link>
@@ -538,11 +539,11 @@ const ProductPage = () => {
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <span className="text-4xl font-bold text-[#171312]">
-              ${displayPrice.toFixed(2)}
+              {formatINR(displayPrice)}
             </span>
             {product.discountPrice && (
               <span className="text-2xl text-[#9f9289] line-through">
-                ${Number(product.price).toFixed(2)}
+                {formatINR(product.price)}
               </span>
             )}
             {discountPercent > 0 && (
@@ -928,8 +929,8 @@ const ProductPage = () => {
                 <div className="rounded-[1.5rem] bg-[#fbf5ef] p-5">
                   <p className="text-lg font-semibold text-[#171312]">Shipping</p>
                   <p className="mt-3 text-sm leading-7 text-[#615751]">
-                    Orders over $99 qualify for complimentary standard shipping.
-                    Most in-stock items dispatch within 1 to 2 business days.
+                    Orders over ₹999 qualify for complimentary standard shipping.
+                    Most in-stock items dispatch across India within 1 to 2 business days.
                   </p>
                 </div>
                 <div className="rounded-[1.5rem] bg-[#fbf5ef] p-5">

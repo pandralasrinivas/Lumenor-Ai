@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { cartAPI } from "../utils/api";
 import { setCart } from "../redux/cartSlice";
+import { formatINR } from "../utils/productPresentation";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -50,20 +51,20 @@ const ProductCard = ({ product }) => {
   return (
     <article
       onClick={() => navigate(`/product/${product._id}`)}
-      className="group overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/90 shadow-[0_24px_80px_-58px_rgba(69,43,27,0.55)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_100px_-54px_rgba(69,43,27,0.58)]"
+      className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#eaded1] bg-white shadow-[0_18px_50px_-42px_rgba(69,43,27,0.42)] transition duration-300 hover:-translate-y-1 hover:border-[#decfc2] hover:shadow-[0_24px_70px_-46px_rgba(69,43,27,0.5)]"
     >
-      <div className="relative overflow-hidden bg-[linear-gradient(180deg,#fbf8f4_0%,#efe6dd_100%)]">
+      <div className="relative overflow-hidden bg-[#f6efe8]">
         {product.discountPrice && (
-          <span className="absolute left-4 top-4 z-10 rounded-full bg-[#ef5b5b] px-3 py-1 text-xs font-bold text-white">
+          <span className="absolute left-3 top-3 z-10 rounded-md bg-[#ef5b5b] px-2.5 py-1 text-xs font-bold text-white">
             -{discountPercent}%
           </span>
         )}
 
-        <span className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#d95f70] shadow-sm">
+        <span className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-[#d95f70] shadow-sm">
           <Heart size={18} />
         </span>
 
-        <div className="aspect-[4/5] overflow-hidden">
+        <div className="aspect-[4/4.65] overflow-hidden">
           {product.images?.[0] ? (
             <img
               src={product.images[0]}
@@ -78,9 +79,9 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      <div className="space-y-4 p-5">
+      <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-3">
-          <span className="rounded-full bg-[#fbf6f1] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-[#a06a5d]">
+          <span className="rounded-md bg-[#fbf6f1] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#a06a5d]">
             {product.category}
           </span>
           <div className="flex items-center gap-1 text-[#d9a43c]">
@@ -91,8 +92,8 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
 
-        <div>
-          <h3 className="line-clamp-2 text-lg font-semibold text-[#171312]">
+        <div className="mt-4">
+          <h3 className="line-clamp-2 min-h-[3.25rem] text-lg font-semibold leading-7 text-[#171312]">
             {product.name}
           </h3>
           <p className="mt-1 text-sm text-[#786c64]">
@@ -100,14 +101,14 @@ const ProductCard = ({ product }) => {
           </p>
         </div>
 
-        <div className="flex items-end justify-between gap-3">
-          <div className="flex items-baseline gap-2">
+        <div className="mt-auto pt-5">
+          <div className="flex min-h-[2.25rem] flex-wrap items-baseline gap-2">
             <span className="text-2xl font-extrabold text-[#171312]">
-              ${displayPrice}
+              {formatINR(displayPrice)}
             </span>
             {product.discountPrice && (
               <span className="text-sm text-[#a79a90] line-through">
-                ${product.price}
+                {formatINR(product.price)}
               </span>
             )}
           </div>
@@ -116,10 +117,10 @@ const ProductCard = ({ product }) => {
             type="button"
             onClick={handleAddToCart}
             disabled={!canQuickAdd}
-            className="inline-flex items-center gap-2 rounded-full border border-[#e4d8cc] bg-[#171312] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#ef5b5b] disabled:cursor-not-allowed disabled:bg-[#b8aea7]"
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#171312] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#ef5b5b] disabled:cursor-not-allowed disabled:bg-[#b8aea7]"
           >
             <ShoppingBag size={16} />
-            {canQuickAdd ? "Quick Add" : "Out of Stock"}
+            {canQuickAdd ? "Add to Cart" : "Out of Stock"}
           </button>
         </div>
       </div>

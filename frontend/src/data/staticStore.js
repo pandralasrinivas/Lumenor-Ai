@@ -81,10 +81,10 @@ const review = (productId, index, rating, title, comment, firstName, lastName) =
 
 export const demoCustomer = {
   _id: "user-demo-customer",
-  firstName: "Avery",
-  lastName: "Morgan",
-  email: "customer@styleup.com",
-  phone: "+1 555 0134",
+  firstName: "Aarav",
+  lastName: "Mehta",
+  email: "customer@styleup.in",
+  phone: "+91 98765 43210",
   role: "customer",
   createdAt: "2026-01-08T09:00:00.000Z",
 };
@@ -93,8 +93,8 @@ export const demoAdmin = {
   _id: "user-demo-admin",
   firstName: "Store",
   lastName: "Admin",
-  email: "admin@styleup.com",
-  phone: "+1 555 0100",
+  email: "admin@styleup.in",
+  phone: "+91 90000 11122",
   role: "admin",
   createdAt: "2026-01-01T09:00:00.000Z",
 };
@@ -102,13 +102,13 @@ export const demoAdmin = {
 export const demoAddresses = [
   {
     _id: "address-demo-home",
-    fullName: "Avery Morgan",
-    phone: "+1 555 0134",
-    street: "42 Market Street",
-    city: "San Francisco",
-    state: "CA",
-    postalCode: "94105",
-    country: "USA",
+    fullName: "Aarav Mehta",
+    phone: "+91 98765 43210",
+    street: "42 Jubilee Hills Road",
+    city: "Hyderabad",
+    state: "Telangana",
+    postalCode: "500033",
+    country: "India",
     isDefault: true,
   },
 ];
@@ -120,8 +120,8 @@ export const staticProducts = [
     description:
       "A structured cotton overshirt with a clean collar, weighty hand feel, and easy layering proportions for workdays and weekends.",
     category: "Men",
-    price: 128,
-    discountPrice: 96,
+    price: 2499,
+    discountPrice: 1899,
     rating: 4.8,
     images: [
       makeProductImage({
@@ -165,7 +165,7 @@ export const staticProducts = [
     description:
       "A breathable button-down with a soft washed finish, curved hem, and a relaxed profile that tucks cleanly or wears open.",
     category: "Men",
-    price: 88,
+    price: 1599,
     rating: 4.5,
     images: [
       makeProductImage({
@@ -206,8 +206,8 @@ export const staticProducts = [
     description:
       "A lightweight utility layer with practical pockets, matte hardware, and enough structure to finish a simple outfit.",
     category: "Men",
-    price: 156,
-    discountPrice: 124,
+    price: 3299,
+    discountPrice: 2699,
     rating: 4.7,
     images: [
       makeProductImage({
@@ -242,8 +242,8 @@ export const staticProducts = [
     description:
       "A fluid bias-cut slip dress with a soft sheen, adjustable straps, and a clean drape for dinners, events, and layered styling.",
     category: "Women",
-    price: 148,
-    discountPrice: 118,
+    price: 2999,
+    discountPrice: 2399,
     rating: 4.9,
     images: [
       makeProductImage({
@@ -287,7 +287,7 @@ export const staticProducts = [
     description:
       "A relaxed linen blend set with a cropped camp shirt and pull-on trouser, designed for warm weather polish.",
     category: "Women",
-    price: 164,
+    price: 3499,
     rating: 4.6,
     images: [
       makeProductImage({
@@ -322,8 +322,8 @@ export const staticProducts = [
     description:
       "A ribbed cardigan with a cropped shape, subtle stretch, and pearled buttons for transitional layering.",
     category: "Women",
-    price: 92,
-    discountPrice: 74,
+    price: 1799,
+    discountPrice: 1399,
     rating: 4.4,
     images: [
       makeProductImage({
@@ -365,8 +365,8 @@ export const staticProducts = [
     description:
       "A clean everyday sneaker with a cushioned footbed, leather upper, and understated contrast paneling.",
     category: "Footwear",
-    price: 132,
-    discountPrice: 105,
+    price: 2799,
+    discountPrice: 2199,
     rating: 4.8,
     images: [
       makeProductImage({
@@ -410,7 +410,7 @@ export const staticProducts = [
     description:
       "A softly squared ankle boot with a walkable heel and tonal stitching that anchors tailoring and denim alike.",
     category: "Footwear",
-    price: 178,
+    price: 3999,
     rating: 4.7,
     images: [
       makeProductImage({
@@ -445,8 +445,8 @@ export const staticProducts = [
     description:
       "A lightweight trainer with a sculpted sole, breathable knit upper, and enough color to wake up an off-duty look.",
     category: "Footwear",
-    price: 118,
-    discountPrice: 89,
+    price: 2499,
+    discountPrice: 1899,
     rating: 4.3,
     images: [
       makeProductImage({
@@ -481,8 +481,8 @@ export const staticProducts = [
     description:
       "A compact top-handle tote with a removable strap, smooth finish, and enough room for daily essentials.",
     category: "Accessories",
-    price: 138,
-    discountPrice: 110,
+    price: 2999,
+    discountPrice: 2299,
     rating: 4.9,
     images: [
       makeProductImage({
@@ -516,7 +516,7 @@ export const staticProducts = [
     description:
       "A lightweight silk scarf with graphic border artwork for tying at the neck, wrist, bag handle, or hair.",
     category: "Accessories",
-    price: 64,
+    price: 999,
     rating: 4.5,
     images: [
       makeProductImage({
@@ -550,7 +550,7 @@ export const staticProducts = [
     description:
       "A slim round watch with clean hour markers, a polished case, and an interchangeable leather strap.",
     category: "Accessories",
-    price: 122,
+    price: 2499,
     rating: 4.6,
     images: [
       makeProductImage({

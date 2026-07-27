@@ -19,12 +19,12 @@ const perks = [
   {
     icon: Truck,
     title: "Free Shipping",
-    copy: "On orders over $99",
+    copy: "On orders over ₹999",
   },
   {
     icon: ShieldCheck,
     title: "Secure Payment",
-    copy: "100% protected checkout",
+    copy: "UPI, cards, COD",
   },
   {
     icon: Headphones,
@@ -105,7 +105,7 @@ const HomePage = () => {
     handleJumpTo("featured");
   };
 
-  const featuredProducts = products.slice(0, 6);
+  const featuredProducts = products.slice(0, 8);
   const newArrivals = [...products]
     .sort((first, second) => {
       return new Date(second.createdAt) - new Date(first.createdAt);
@@ -189,9 +189,9 @@ const HomePage = () => {
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-8 text-[#6f655d]">
-                Discover the latest trends in fashion with premium quality,
-                refined essentials, and effortless pieces designed to move with
-                you.
+                Shop premium everyday fashion with transparent rupee pricing,
+                quick India-wide delivery, and curated essentials designed to
+                move with you.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -277,7 +277,7 @@ const HomePage = () => {
                   <div>
                     <p className="font-semibold text-[#171312]">Spring Sale</p>
                     <p className="text-sm text-[#756961]">
-                      Up to 50% Off selected essentials
+                      Up to 50% off selected essentials
                     </p>
                   </div>
 
@@ -404,13 +404,13 @@ const HomePage = () => {
 
         <div className="mt-8">
           {isLoading ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
-              {Array.from({ length: 6 }).map((_, index) => (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, index) => (
                 <div
                   key={index}
-                  className="overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/80 p-4 shadow-[0_20px_70px_-58px_rgba(63,40,24,0.55)]"
+                  className="overflow-hidden rounded-2xl border border-[#eaded1] bg-white p-4 shadow-[0_18px_50px_-42px_rgba(63,40,24,0.38)]"
                 >
-                  <div className="aspect-[4/5] animate-pulse rounded-[1.4rem] bg-[#f1e6dc]" />
+                  <div className="aspect-[4/4.65] animate-pulse rounded-xl bg-[#f1e6dc]" />
                   <div className="mt-4 h-4 animate-pulse rounded-full bg-[#f1e6dc]" />
                   <div className="mt-3 h-4 w-2/3 animate-pulse rounded-full bg-[#f1e6dc]" />
                   <div className="mt-5 h-11 animate-pulse rounded-full bg-[#f1e6dc]" />
@@ -418,7 +418,7 @@ const HomePage = () => {
               ))}
             </div>
           ) : featuredProducts.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {featuredProducts.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
@@ -480,8 +480,8 @@ const HomePage = () => {
           </div>
 
           <p className="max-w-xl text-sm leading-7 text-[#766a61]">
-            Shop markdown-ready essentials and quick-moving favorites chosen to
-            mirror the landing page reference styling.
+            Shop limited-time markdowns on quick-moving favorites before the
+            best sizes sell out.
           </p>
         </div>
 
@@ -496,18 +496,16 @@ const HomePage = () => {
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[2rem] border border-white/70 bg-white/[0.82] px-8 py-10 shadow-[0_24px_80px_-60px_rgba(63,40,24,0.52)]">
             <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#ef5b5b]">
-              About the Edit
+              About StyleUp
             </p>
             <h2
               className={`mt-4 max-w-2xl text-4xl text-[#171312] sm:text-5xl ${displayClass}`}
             >
-              Built to feel premium, easy to browse, and ready for real-world
-              shopping.
+              Premium everyday fashion, packed and delivered across India.
             </h2>
             <p className="mt-5 max-w-2xl text-sm leading-8 text-[#6d6159]">
-              This storefront blends fashion-forward presentation with practical
-              commerce flows, so visitors can discover products quickly and move
-              from inspiration to checkout without friction.
+              StyleUp curates polished essentials, reliable sizing, and easy
+              returns so every order feels considered from discovery to doorstep.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -528,20 +526,20 @@ const HomePage = () => {
           <div className="grid gap-5">
             <div className="rounded-[2rem] border border-white/70 bg-[linear-gradient(180deg,#fff8f2_0%,#f7efe6_100%)] px-7 py-8 shadow-[0_22px_72px_-58px_rgba(63,40,24,0.52)]">
               <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#a06a5d]">
-                Why it works
+                Why shoppers choose us
               </p>
               <div className="mt-5 space-y-4 text-sm leading-7 text-[#5b5049]">
                 <p>
-                  A warm editorial layout makes the catalog feel curated instead
-                  of crowded.
+                  Quality-checked fabrics, clean finishing, and practical
+                  silhouettes keep each piece ready for repeat wear.
                 </p>
                 <p>
-                  Category shortcuts, promo highlights, and sharp product cards
-                  keep the browsing flow fast.
+                  UPI, cards, COD, saved addresses, and transparent GST totals
+                  make checkout feel familiar.
                 </p>
                 <p>
-                  Existing shopping features stay intact underneath the new
-                  landing page presentation.
+                  Orders are packed quickly with India-wide delivery updates and
+                  simple return support.
                 </p>
               </div>
             </div>
@@ -554,9 +552,9 @@ const HomePage = () => {
                 Need styling help or product support?
               </p>
               <div className="mt-5 space-y-2 text-sm text-white/75">
-                <p>Email: info@fashionstore.com</p>
-                <p>Phone: +1 (555) 123-4567</p>
-                <p>Hours: Monday to Saturday, 9 AM to 7 PM</p>
+                <p>Email: support@styleup.in</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Hours: Monday to Saturday, 9 AM to 7 PM IST</p>
               </div>
             </div>
           </div>

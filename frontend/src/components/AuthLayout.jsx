@@ -13,12 +13,12 @@ const showcasePerks = [
   {
     icon: Truck,
     title: "Free Shipping",
-    copy: "On all orders over $59",
+    copy: "On all orders over ₹999",
   },
   {
     icon: ShieldCheck,
     title: "Secure Payment",
-    copy: "100% secure payment",
+    copy: "UPI, cards, and COD",
   },
   {
     icon: RotateCcw,
@@ -76,8 +76,8 @@ const AuthLayout = ({
                 <span className="mt-3 block text-[#ef5b5b]">Your Way.</span>
               </h1>
               <p className="mt-6 max-w-lg text-lg leading-9 text-[#5f5550]">
-                Discover the latest trends in fashion and express your unique
-                style through elevated essentials and easy everyday pieces.
+                Discover elevated essentials with India-ready checkout, GST
+                invoices, fast delivery, and easy everyday pieces.
               </p>
             </div>
 

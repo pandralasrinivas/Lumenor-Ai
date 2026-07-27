@@ -15,6 +15,7 @@ import ShopProductCard from "../components/ShopProductCard";
 import {
   getColorSwatch,
   getDisplayPrice,
+  formatINR,
   getProductColors,
   getProductSizes,
   sortSizes,
@@ -106,34 +107,34 @@ const ShopPage = () => {
   const searchParamsString = searchParams.toString();
   const activeSearch = React.useMemo(
     () => searchParams.get("search") || "",
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activeCategories = React.useMemo(
     () =>
       parseCsvParam(
         searchParams.get("categories") || searchParams.get("category"),
       ),
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activeSizes = React.useMemo(
     () => parseCsvParam(searchParams.get("sizes")),
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activeColors = React.useMemo(
     () => parseCsvParam(searchParams.get("colors")),
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activeMinRating = React.useMemo(
     () => Number(searchParams.get("minRating") || 0),
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activeSort = React.useMemo(
     () => searchParams.get("sort") || "popular",
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const activePage = React.useMemo(
     () => Math.max(1, Number(searchParams.get("page") || 1)),
-    [searchParamsString],
+    [searchParams, searchParamsString],
   );
   const catalogPriceValues = catalogProducts.map((product) =>
     getDisplayPrice(product),
@@ -146,11 +147,11 @@ const ShopPage = () => {
     : 200;
   const rawMinPrice = React.useMemo(
     () => Number(searchParams.get("minPrice") || minimumCatalogPrice),
-    [searchParamsString, minimumCatalogPrice],
+    [searchParams, searchParamsString, minimumCatalogPrice],
   );
   const rawMaxPrice = React.useMemo(
     () => Number(searchParams.get("maxPrice") || maximumCatalogPrice),
-    [searchParamsString, maximumCatalogPrice],
+    [searchParams, searchParamsString, maximumCatalogPrice],
   );
   const activeMinPrice = Number.isFinite(rawMinPrice)
     ? rawMinPrice
@@ -564,8 +565,8 @@ const ShopPage = () => {
                 {openSections.price && (
                   <div className="mt-5">
                     <div className="flex items-center justify-between text-sm text-[#6f635b]">
-                      <span>${draftFilters.minPrice}</span>
-                      <span>${draftFilters.maxPrice}</span>
+                      <span>{formatINR(draftFilters.minPrice)}</span>
+                      <span>{formatINR(draftFilters.maxPrice)}</span>
                     </div>
                     <div className="mt-4 space-y-4">
                       <input

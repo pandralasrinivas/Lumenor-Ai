@@ -7,7 +7,7 @@ import {
 
 const PRODUCTS_KEY = "styleup.static.products";
 const PRODUCTS_VERSION_KEY = "styleup.static.products.version";
-const PRODUCTS_VERSION = "2026-07-static-catalog-v1";
+const PRODUCTS_VERSION = "2026-07-static-catalog-inr-v2";
 const USER_KEY = "styleup.static.user";
 const CART_KEY = "styleup.static.cart";
 const COUPON_KEY = "styleup.static.coupon";
@@ -301,9 +301,11 @@ const writeCartEntries = (entries) => {
 const getCouponRate = (couponCode) => {
   const normalizedCode = String(couponCode || "").trim().toUpperCase();
   const coupons = {
+    STYLE20: 0.2,
     WELCOME20: 0.2,
+    INDIA10: 0.1,
     STYLE10: 0.1,
-    STATIC15: 0.15,
+    FESTIVE15: 0.15,
   };
 
   return coupons[normalizedCode] || 0;
@@ -373,9 +375,9 @@ const getOrderSeed = () => {
   const price = getDisplayPrice(product);
   const subtotalAmount = Number((price * 1).toFixed(2));
   const discountAmount = Number((subtotalAmount * 0.2).toFixed(2));
-  const shippingCost = subtotalAmount - discountAmount >= 99 ? 0 : 5.99;
+  const shippingCost = subtotalAmount - discountAmount >= 999 ? 0 : 79;
   const taxAmount = Number(
-    ((subtotalAmount - discountAmount + shippingCost) * 0.0865).toFixed(2),
+    ((subtotalAmount - discountAmount + shippingCost) * 0.18).toFixed(2),
   );
   const totalAmount = Number(
     (subtotalAmount - discountAmount + shippingCost + taxAmount).toFixed(2),
@@ -406,7 +408,7 @@ const getOrderSeed = () => {
       shippingCost,
       taxAmount,
       totalAmount,
-      trackingNumber: "STUP-STATIC-1001",
+      trackingNumber: "STUP-IND-1001",
       estimatedDelivery: "2026-08-01T10:00:00.000Z",
       createdAt: "2026-07-20T13:20:00.000Z",
     },
@@ -594,7 +596,7 @@ export const cartAPI = {
     const normalizedCode = String(couponCode || "").trim().toUpperCase();
 
     if (!getCouponRate(normalizedCode)) {
-      return rejectWithMessage("Use WELCOME20, STYLE10, or STATIC15 for this static demo");
+      return rejectWithMessage("Use STYLE20, INDIA10, or FESTIVE15 at checkout");
     }
 
     writeJSON(COUPON_KEY, normalizedCode);
@@ -635,11 +637,11 @@ export const orderAPI = {
     const discountedSubtotal = Math.max(cart.totalPrice - cart.discountAmount, 0);
     const shippingCost =
       shippingMethod === "express_shipping"
-        ? 12.99
-        : discountedSubtotal >= 99
+        ? 149
+        : discountedSubtotal >= 999
           ? 0
-          : 5.99;
-    const taxAmount = Number(((discountedSubtotal + shippingCost) * 0.0865).toFixed(2));
+          : 79;
+    const taxAmount = Number(((discountedSubtotal + shippingCost) * 0.18).toFixed(2));
     const totalAmount = Number((discountedSubtotal + shippingCost + taxAmount).toFixed(2));
     const orderId = makeId("order");
     const order = {
@@ -709,12 +711,12 @@ export const orderAPI = {
       "",
       ...order.items.map(
         (item) =>
-          `${item.product?.name || "Product"} x ${item.quantity} - $${Number(
+          `${item.product?.name || "Product"} x ${item.quantity} - ₹${Number(
             item.price * item.quantity,
-          ).toFixed(2)}`,
+          ).toLocaleString("en-IN")}`,
       ),
       "",
-      `Total: $${Number(order.totalAmount || 0).toFixed(2)}`,
+      `Total: ₹${Number(order.totalAmount || 0).toLocaleString("en-IN")}`,
     ].join("\n");
     const blob = new Blob([invoiceText], { type: "application/pdf" });
 

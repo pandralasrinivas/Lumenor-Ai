@@ -10,6 +10,7 @@ import {
   Undo2,
 } from "lucide-react";
 import { adminAPI } from "../../utils/api";
+import { formatINR } from "../../utils/productPresentation";
 import AdminProductForm from "../components/AdminProductForm";
 
 const categories = ["All", "Men", "Women", "Footwear", "Accessories"];
@@ -274,9 +275,9 @@ const AdminProductsPage = () => {
                       </div>
 
                       <p className="mt-2 text-sm text-[#746960]">
-                        {product.category} · ${Number(product.price || 0).toFixed(2)}
+                        {product.category} · {formatINR(product.price)}
                         {product.discountPrice
-                          ? ` · Final $${Number(product.discountPrice).toFixed(2)}`
+                          ? ` · Final ${formatINR(product.discountPrice)}`
                           : ""}
                       </p>
                       <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#746960]">

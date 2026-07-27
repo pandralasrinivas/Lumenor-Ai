@@ -36,8 +36,8 @@ const Footer = () => {
               <span className="text-[#ef5b5b]">Up.</span>
             </p>
             <p className="mt-5 max-w-sm text-sm leading-7 text-white/[0.65]">
-              A polished storefront for modern wardrobes, elevated essentials,
-              and smooth shopping flows from discovery to checkout.
+              A polished Indian storefront for modern wardrobes, elevated
+              essentials, UPI checkout, and smooth delivery flows.
             </p>
 
             <div className="mt-6 flex gap-3">
@@ -87,7 +87,7 @@ const Footer = () => {
             <ul className="mt-5 space-y-4 text-sm text-white/[0.65]">
               <li className="flex items-start gap-3">
                 <Mail size={18} className="mt-0.5 text-[#ef5b5b]" />
-                <span>info@styleup.com</span>
+                <span>support@styleup.in</span>
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={18} className="mt-0.5 text-[#ef5b5b]" />
@@ -95,7 +95,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="mt-0.5 text-[#ef5b5b]" />
-                <span>Hyderabad,Telanagana,India</span>
+                <span>Hyderabad, Telangana, India</span>
               </li>
             </ul>
 
@@ -114,7 +114,7 @@ const Footer = () => {
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/[0.45] sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2026 StyleUp. Crafted for modern fashion storefronts.</p>
           <p>
-            Responsive landing page experience built with React and Tailwind.
+            Secure UPI checkout, GST invoices, and India-wide delivery.
           </p>
         </div>
       </div>

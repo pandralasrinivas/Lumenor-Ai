@@ -99,7 +99,7 @@ const Navbar = () => {
           <Gift size={14} />
           <span>
             GET 20% OFF ON YOUR FIRST ORDER. USE CODE:
-            <span className="ml-2 text-[#ef5b5b]">WELCOME20</span>
+            <span className="ml-2 text-[#ef5b5b]">STYLE20</span>
           </span>
         </div>
       </div>

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { cartAPI, productAPI } from "../utils/api";
 import { setCart } from "../redux/cartSlice";
-import { getDisplayPrice } from "../utils/productPresentation";
+import { formatINR, getDisplayPrice } from "../utils/productPresentation";
 
 const sectionShell = "mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8";
 
@@ -75,7 +75,7 @@ const CartSuggestionCard = ({ product }) => {
           {product.name}
         </h3>
         <p className="mt-3 text-xl font-bold text-[#171312]">
-          ${displayPrice.toFixed(2)}
+          {formatINR(displayPrice)}
         </p>
         <div className="mt-3 flex items-center gap-2 text-xs">
           <div className="flex items-center gap-0.5">{renderStars(product.rating)}</div>
@@ -208,10 +208,10 @@ const CartPage = () => {
   };
 
   const subtotalAfterDiscount = Math.max(totalPrice - discountAmount, 0);
-  const shippingCost = items.length === 0 ? 0 : subtotalAfterDiscount >= 99 ? 0 : 5.99;
-  const estimatedTax = items.length === 0 ? 0 : (subtotalAfterDiscount + shippingCost) * 0.0865;
+  const shippingCost = items.length === 0 ? 0 : subtotalAfterDiscount >= 999 ? 0 : 79;
+  const estimatedTax = items.length === 0 ? 0 : (subtotalAfterDiscount + shippingCost) * 0.18;
   const orderTotal = subtotalAfterDiscount + shippingCost + estimatedTax;
-  const freeShippingGap = Math.max(0, 99 - subtotalAfterDiscount);
+  const freeShippingGap = Math.max(0, 999 - subtotalAfterDiscount);
 
   const itemCountLabel = useMemo(() => {
     const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -339,7 +339,7 @@ const CartPage = () => {
                         Price
                       </span>
                       <span className="text-xl font-semibold">
-                        ${Number(item.priceAtAddition || 0).toFixed(2)}
+                        {formatINR(item.priceAtAddition)}
                       </span>
                     </div>
 
@@ -373,7 +373,7 @@ const CartPage = () => {
                         Total
                       </span>
                       <span className="text-xl font-semibold">
-                        ${itemTotal.toFixed(2)}
+                        {formatINR(itemTotal)}
                       </span>
                     </div>
 
@@ -399,14 +399,14 @@ const CartPage = () => {
               <div className="flex items-center justify-between">
                 <span>Subtotal ({itemCountLabel} items)</span>
                 <span className="font-semibold text-[#171312]">
-                  ${totalPrice.toFixed(2)}
+                  {formatINR(totalPrice)}
                 </span>
               </div>
 
               {discountAmount > 0 && (
                 <div className="flex items-center justify-between text-[#2d9b52]">
                   <span>Discount</span>
-                  <span className="font-semibold">-${discountAmount.toFixed(2)}</span>
+                  <span className="font-semibold">-{formatINR(discountAmount)}</span>
                 </div>
               )}
 
@@ -416,17 +416,17 @@ const CartPage = () => {
                   <Info size={14} className="text-[#9a8d84]" />
                 </span>
                 <span className="font-semibold text-[#171312]">
-                  {shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`}
+                  {shippingCost === 0 ? "Free" : formatINR(shippingCost)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1">
-                  Estimated Tax
+                  GST
                   <Info size={14} className="text-[#9a8d84]" />
                 </span>
                 <span className="font-semibold text-[#171312]">
-                  ${estimatedTax.toFixed(2)}
+                  {formatINR(estimatedTax)}
                 </span>
               </div>
             </div>
@@ -435,13 +435,13 @@ const CartPage = () => {
               <div className="flex items-center justify-between">
                 <span className="text-xl font-semibold text-[#171312]">Total</span>
                 <span className="text-4xl font-bold text-[#171312]">
-                  ${orderTotal.toFixed(2)}
+                  {formatINR(orderTotal)}
                 </span>
               </div>
 
               {discountAmount > 0 && (
                 <p className="mt-3 text-sm font-medium text-[#2d9b52]">
-                  You saved ${discountAmount.toFixed(2)}
+                  You saved {formatINR(discountAmount)}
                 </p>
               )}
             </div>
@@ -495,7 +495,7 @@ const CartPage = () => {
                   <div>
                     <p className="font-semibold">Free shipping is close.</p>
                     <p className="mt-1 text-[#376f49]">
-                      Add ${freeShippingGap.toFixed(2)} more to unlock free delivery.
+                      Add {formatINR(freeShippingGap)} more to unlock free delivery.
                     </p>
                   </div>
                 </div>

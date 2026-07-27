@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Plus, Trash2, X } from "lucide-react";
+import { formatINR } from "../../utils/productPresentation";
 
 const categories = ["Men", "Women", "Footwear", "Accessories"];
 
@@ -321,7 +322,7 @@ const AdminProductForm = ({
                         Sale price auto-calculated from {normalizedDiscountPercent}% off
                       </span>
                       <span className="font-semibold text-[#171312]">
-                        ${calculatedDiscountPrice.toFixed(2)}
+                        {formatINR(calculatedDiscountPrice)}
                       </span>
                     </div>
                   ) : (

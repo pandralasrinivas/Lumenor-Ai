@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ArrowLeft, Save } from "lucide-react";
 import { adminAPI } from "../../utils/api";
+import { formatINR } from "../../utils/productPresentation";
 
 const AdminOrderDetailsPage = () => {
   const { id } = useParams();
@@ -142,7 +143,7 @@ const AdminOrderDetailsPage = () => {
                     </p>
                   </div>
                   <p className="font-semibold text-[#171312]">
-                    ${Number(item.price * item.quantity || 0).toFixed(2)}
+                    {formatINR(item.price * item.quantity)}
                   </p>
                 </div>
               ))}
@@ -239,31 +240,31 @@ const AdminOrderDetailsPage = () => {
             <div className="flex items-center justify-between">
               <span>Subtotal</span>
               <span className="font-semibold text-[#171312]">
-                ${Number(order.subtotalAmount || 0).toFixed(2)}
+                {formatINR(order.subtotalAmount)}
               </span>
             </div>
             <div className="mt-2 flex items-center justify-between">
               <span>Discount</span>
               <span className="font-semibold text-[#171312]">
-                -${Number(order.discountAmount || 0).toFixed(2)}
+                -{formatINR(order.discountAmount)}
               </span>
             </div>
             <div className="mt-2 flex items-center justify-between">
               <span>Shipping</span>
               <span className="font-semibold text-[#171312]">
-                ${Number(order.shippingCost || 0).toFixed(2)}
+                {formatINR(order.shippingCost)}
               </span>
             </div>
             <div className="mt-2 flex items-center justify-between">
-              <span>Tax</span>
+              <span>GST</span>
               <span className="font-semibold text-[#171312]">
-                ${Number(order.taxAmount || 0).toFixed(2)}
+                {formatINR(order.taxAmount)}
               </span>
             </div>
             <div className="mt-3 border-t border-[#f1e7dc] pt-3 flex items-center justify-between">
               <span className="text-base font-semibold text-[#171312]">Total</span>
               <span className="text-2xl font-semibold text-[#171312]">
-                ${Number(order.totalAmount || 0).toFixed(2)}
+                {formatINR(order.totalAmount)}
               </span>
             </div>
           </div>

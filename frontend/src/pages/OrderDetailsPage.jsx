@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { downloadBlobFile, orderAPI } from "../utils/api";
+import { formatINR } from "../utils/productPresentation";
 import { Download, MapPin, Truck } from "lucide-react";
 
 const statusClasses = {
@@ -226,10 +227,10 @@ const OrderDetailsPage = () => {
                     </div>
                     <div className="text-right">
                       <p className="font-semibold">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        {formatINR(item.price * item.quantity)}
                       </p>
                       <p className="text-sm text-gray-600">
-                        ${item.price} each
+                        {formatINR(item.price)} each
                       </p>
                     </div>
                   </div>
@@ -272,33 +273,33 @@ const OrderDetailsPage = () => {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>${subtotalAmount.toFixed(2)}</span>
+                  <span>{formatINR(subtotalAmount)}</span>
                 </div>
 
                 {order.discountAmount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Discount</span>
-                    <span>-${order.discountAmount.toFixed(2)}</span>
+                    <span>-{formatINR(order.discountAmount)}</span>
                   </div>
                 )}
 
                 {shippingCost > 0 && (
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>${shippingCost.toFixed(2)}</span>
+                    <span>{formatINR(shippingCost)}</span>
                   </div>
                 )}
 
                 {taxAmount > 0 && (
                   <div className="flex justify-between">
-                    <span>Estimated Tax</span>
-                    <span>${taxAmount.toFixed(2)}</span>
+                    <span>GST</span>
+                    <span>{formatINR(taxAmount)}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between text-lg font-bold border-t pt-3">
                   <span>Total</span>
-                  <span>${order.totalAmount.toFixed(2)}</span>
+                  <span>{formatINR(order.totalAmount)}</span>
                 </div>
               </div>
             </div>

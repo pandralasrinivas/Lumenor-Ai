@@ -5,6 +5,7 @@ import {
   getColorSwatch,
   getDiscountPercent,
   getDisplayPrice,
+  formatINR,
   getProductColors,
 } from "../utils/productPresentation";
 
@@ -19,15 +20,15 @@ const ShopProductCard = ({ product, viewMode = "grid" }) => {
   return (
     <article
       onClick={() => navigate(`/product/${product._id}`)}
-      className={`group cursor-pointer overflow-hidden border border-white/70 bg-white/[0.88] shadow-[0_26px_80px_-62px_rgba(61,39,24,0.5)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_-56px_rgba(61,39,24,0.56)] ${
+      className={`group cursor-pointer overflow-hidden border border-[#eaded1] bg-white shadow-[0_18px_50px_-42px_rgba(61,39,24,0.4)] transition duration-300 hover:-translate-y-1 hover:border-[#decfc2] hover:shadow-[0_24px_70px_-46px_rgba(61,39,24,0.48)] ${
         viewMode === "list"
-          ? "grid rounded-[2rem] sm:grid-cols-[240px_minmax(0,1fr)]"
-          : "rounded-[1.85rem]"
+          ? "grid rounded-2xl sm:grid-cols-[240px_minmax(0,1fr)]"
+          : "rounded-2xl"
       }`}
     >
-      <div className="relative overflow-hidden bg-[linear-gradient(180deg,#fcfaf7_0%,#efe4d8_100%)]">
+      <div className="relative overflow-hidden bg-[#f6efe8]">
         {discountPercent > 0 && (
-          <span className="absolute left-4 top-4 z-10 rounded-full bg-[#ef5b5b] px-3 py-1 text-xs font-bold text-white">
+          <span className="absolute left-3 top-3 z-10 rounded-md bg-[#ef5b5b] px-2.5 py-1 text-xs font-bold text-white">
             -{discountPercent}%
           </span>
         )}
@@ -35,14 +36,14 @@ const ShopProductCard = ({ product, viewMode = "grid" }) => {
         <button
           type="button"
           onClick={(event) => event.stopPropagation()}
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.92] text-[#8d7f76] shadow-sm transition hover:text-[#ef5b5b]"
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-[#8d7f76] shadow-sm transition hover:text-[#ef5b5b]"
         >
           <Heart size={18} />
         </button>
 
         <div
           className={`overflow-hidden ${
-            viewMode === "list" ? "h-full min-h-[260px]" : "aspect-[4/4.9]"
+            viewMode === "list" ? "h-full min-h-[260px]" : "aspect-[4/4.65]"
           }`}
         >
           {product.images?.[0] ? (
@@ -61,7 +62,11 @@ const ShopProductCard = ({ product, viewMode = "grid" }) => {
 
       <div className="flex flex-col justify-between p-5">
         <div>
-          <h3 className="line-clamp-2 text-[1.15rem] font-semibold text-[#171312]">
+          <span className="rounded-md bg-[#fbf6f1] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#a06a5d]">
+            {product.category}
+          </span>
+
+          <h3 className="mt-4 line-clamp-2 min-h-[3.25rem] text-[1.15rem] font-semibold leading-7 text-[#171312]">
             {product.name}
           </h3>
 
@@ -79,13 +84,13 @@ const ShopProductCard = ({ product, viewMode = "grid" }) => {
             <span className="text-sm text-[#7c7067]">({reviewCount})</span>
           </div>
 
-          <div className="mt-4 flex items-end gap-2">
+          <div className="mt-4 flex flex-wrap items-baseline gap-2">
             <span className="text-[1.85rem] font-bold text-[#171312]">
-              ${displayPrice.toFixed(2)}
+              {formatINR(displayPrice)}
             </span>
             {product.discountPrice && (
               <span className="pb-1 text-sm text-[#9c9088] line-through">
-                ${Number(product.price).toFixed(2)}
+                {formatINR(product.price)}
               </span>
             )}
           </div>
@@ -97,8 +102,8 @@ const ShopProductCard = ({ product, viewMode = "grid" }) => {
           )}
         </div>
 
-        <div className="mt-5">
-          <div className="flex items-center gap-3">
+        <div className="mt-5 border-t border-[#f1e7dc] pt-4">
+          <div className="flex items-center justify-between gap-3">
             <span className="text-sm text-[#746960]">
               {colors.length} {colors.length === 1 ? "Color" : "Colors"}
             </span>

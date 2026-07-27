@@ -20,41 +20,41 @@ import { addressAPI, cartAPI, orderAPI } from "../utils/api";
 import { clearCart, setCart } from "../redux/cartSlice";
 
 const sectionShell = "mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8";
-const FREE_SHIPPING_THRESHOLD = 99;
-const STANDARD_SHIPPING_COST = 5.99;
-const EXPRESS_SHIPPING_COST = 12.99;
-const ESTIMATED_TAX_RATE = 0.0865;
+const FREE_SHIPPING_THRESHOLD = 999;
+const STANDARD_SHIPPING_COST = 79;
+const EXPRESS_SHIPPING_COST = 149;
+const ESTIMATED_TAX_RATE = 0.18;
 
 const shippingOptions = [
   {
     id: "standard_shipping",
     title: "Standard Shipping",
-    eta: "5-7 Business Days",
+    eta: "3-5 Business Days",
     price: STANDARD_SHIPPING_COST,
   },
   {
     id: "express_shipping",
     title: "Express Shipping",
-    eta: "2-3 Business Days",
+    eta: "1-2 Business Days",
     price: EXPRESS_SHIPPING_COST,
   },
 ];
 
 const paymentOptions = [
   {
+    id: "upi",
+    title: "UPI",
+    badges: ["GPay", "PhonePe", "Paytm"],
+  },
+  {
     id: "credit_debit_card",
     title: "Credit / Debit Card",
-    badges: ["VISA", "MC", "AMEX"],
+    badges: ["VISA", "Rupay", "MC"],
   },
   {
-    id: "paypal",
-    title: "PayPal",
-    badges: ["PayPal"],
-  },
-  {
-    id: "stripe",
-    title: "Stripe",
-    badges: ["stripe"],
+    id: "net_banking",
+    title: "Net Banking",
+    badges: ["IMPS", "NEFT"],
   },
   {
     id: "cash_on_delivery",
@@ -67,7 +67,7 @@ const perkItems = [
   {
     icon: Truck,
     title: "Free Shipping",
-    copy: "On orders over $99",
+    copy: "On orders over ₹999",
   },
   {
     icon: RotateCcw,
@@ -88,7 +88,7 @@ const initialAddressForm = {
   city: "",
   state: "",
   postalCode: "",
-  country: "USA",
+  country: "India",
   isDefault: false,
 };
 
@@ -99,7 +99,12 @@ const initialCardForm = {
   cardholderName: "",
 };
 
-const formatCurrency = (value) => `$${Number(value || 0).toFixed(2)}`;
+const formatCurrency = (value) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(Number(value || 0));
 
 const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
@@ -108,7 +113,7 @@ const CheckoutPage = () => {
   const [editingAddressId, setEditingAddressId] = useState(null);
   const [addressForm, setAddressForm] = useState(initialAddressForm);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    "credit_debit_card",
+    "upi",
   );
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
     "standard_shipping",
@@ -879,7 +884,7 @@ const CheckoutPage = () => {
             </div>
 
             <div className="flex items-center justify-between">
-              <span>Estimated Tax</span>
+              <span>GST</span>
               <span className="font-semibold text-[#171312]">
                 {formatCurrency(estimatedTax)}
               </span>

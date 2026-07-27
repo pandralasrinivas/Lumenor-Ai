@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { AlertTriangle, ArrowRight, Boxes, DollarSign, Users } from "lucide-react";
+import { AlertTriangle, ArrowRight, Boxes, IndianRupee, Users } from "lucide-react";
 import { adminAPI } from "../../utils/api";
+import { formatINR } from "../../utils/productPresentation";
 
 const stats = [
   { key: "productCount", label: "Products", icon: Boxes },
   { key: "orderCount", label: "Orders", icon: Boxes },
   { key: "userCount", label: "Customers", icon: Users },
-  { key: "totalRevenue", label: "Revenue", icon: DollarSign },
+  { key: "totalRevenue", label: "Revenue", icon: IndianRupee },
 ];
 
 const StatCard = ({ label, value, icon: Icon, formatValue }) => (
@@ -81,7 +82,7 @@ const AdminDashboardPage = () => {
             icon={item.icon}
             formatValue={
               item.key === "totalRevenue"
-                ? (value) => `$${Number(value || 0).toFixed(2)}`
+                ? (value) => formatINR(value)
                 : undefined
             }
           />
@@ -176,7 +177,7 @@ const AdminDashboardPage = () => {
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-[#171312]">
-                        ${Number(order.totalAmount || 0).toFixed(2)}
+                        {formatINR(order.totalAmount)}
                       </p>
                       <p className="mt-1 text-sm capitalize text-[#746960]">
                         {order.status}

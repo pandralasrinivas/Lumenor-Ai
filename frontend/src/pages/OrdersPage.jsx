@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { downloadBlobFile, orderAPI } from "../utils/api";
+import { formatINR } from "../utils/productPresentation";
 import { Download } from "lucide-react";
 
 const OrdersPage = () => {
@@ -96,7 +97,7 @@ const OrdersPage = () => {
                   <div>
                     <p className="text-gray-600 text-sm">Total Amount</p>
                     <p className="font-bold text-lg">
-                      ${order.totalAmount.toFixed(2)}
+                      {formatINR(order.totalAmount)}
                     </p>
                   </div>
                 </div>
@@ -106,8 +107,8 @@ const OrdersPage = () => {
                   <div className="space-y-2">
                     {order.items.map((item, idx) => (
                       <p key={idx} className="text-sm text-gray-700">
-                        {item.product?.name} (Qty: {item.quantity}) - $
-                        {(item.price * item.quantity).toFixed(2)}
+                        {item.product?.name} (Qty: {item.quantity}) -{" "}
+                        {formatINR(item.price * item.quantity)}
                       </p>
                     ))}
                   </div>
