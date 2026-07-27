@@ -1,5 +1,12 @@
 export const getDisplayPrice = (product) => product.discountPrice || product.price || 0;
 
+export const formatINR = (value) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(Number(value || 0));
+
 export const getDiscountPercent = (product) => {
   if (!product?.discountPrice || !product?.price) {
     return 0;
