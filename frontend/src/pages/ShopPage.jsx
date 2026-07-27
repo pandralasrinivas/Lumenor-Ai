@@ -104,37 +104,36 @@ const ShopPage = () => {
     minRating: 0,
   });
 
-  const searchParamsString = searchParams.toString();
   const activeSearch = React.useMemo(
     () => searchParams.get("search") || "",
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activeCategories = React.useMemo(
     () =>
       parseCsvParam(
         searchParams.get("categories") || searchParams.get("category"),
       ),
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activeSizes = React.useMemo(
     () => parseCsvParam(searchParams.get("sizes")),
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activeColors = React.useMemo(
     () => parseCsvParam(searchParams.get("colors")),
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activeMinRating = React.useMemo(
     () => Number(searchParams.get("minRating") || 0),
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activeSort = React.useMemo(
     () => searchParams.get("sort") || "popular",
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const activePage = React.useMemo(
     () => Math.max(1, Number(searchParams.get("page") || 1)),
-    [searchParams, searchParamsString],
+    [searchParams],
   );
   const catalogPriceValues = catalogProducts.map((product) =>
     getDisplayPrice(product),
@@ -147,11 +146,11 @@ const ShopPage = () => {
     : 200;
   const rawMinPrice = React.useMemo(
     () => Number(searchParams.get("minPrice") || minimumCatalogPrice),
-    [searchParams, searchParamsString, minimumCatalogPrice],
+    [searchParams, minimumCatalogPrice],
   );
   const rawMaxPrice = React.useMemo(
     () => Number(searchParams.get("maxPrice") || maximumCatalogPrice),
-    [searchParams, searchParamsString, maximumCatalogPrice],
+    [searchParams, maximumCatalogPrice],
   );
   const activeMinPrice = Number.isFinite(rawMinPrice)
     ? rawMinPrice
