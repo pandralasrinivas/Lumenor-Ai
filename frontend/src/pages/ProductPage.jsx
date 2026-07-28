@@ -137,7 +137,9 @@ const RelatedProductCard = ({ product }) => {
         </h3>
 
         <div className="mt-3 flex items-center gap-2 text-[#d7a033]">
-          <div className="flex items-center gap-1">{renderStarRow(product.rating, 13)}</div>
+          <div className="flex items-center gap-1">
+            {renderStarRow(product.rating, 13)}
+          </div>
           <span className="text-xs text-[#7d7168]">({reviewCount})</span>
         </div>
 
@@ -213,12 +215,15 @@ const ProductPage = () => {
       return;
     }
 
-    const currentVariant = product.variants.find((variant) => variant.color === selectedColor);
+    const currentVariant = product.variants.find(
+      (variant) => variant.color === selectedColor,
+    );
     const hasSelectedSize = currentVariant?.sizes?.some(
       (size) => size.size === selectedSize && size.stock > 0,
     );
     const fallbackSize =
-      currentVariant?.sizes?.find((size) => size.stock > 0) || currentVariant?.sizes?.[0];
+      currentVariant?.sizes?.find((size) => size.stock > 0) ||
+      currentVariant?.sizes?.[0];
 
     if (!hasSelectedSize && fallbackSize?.size) {
       setSelectedSize(fallbackSize.size);
@@ -234,7 +239,9 @@ const ProductPage = () => {
     const selectedStock = getVariantStock(product, selectedColor, selectedSize);
 
     if (selectedStock !== Number.POSITIVE_INFINITY) {
-      setQuantity((current) => Math.min(Math.max(1, current), Math.max(1, selectedStock)));
+      setQuantity((current) =>
+        Math.min(Math.max(1, current), Math.max(1, selectedStock)),
+      );
     }
   }, [product, selectedColor, selectedSize]);
 
@@ -303,7 +310,9 @@ const ProductPage = () => {
 
     const selectedStock = getVariantStock(product, selectedColor, selectedSize);
     const maxAllowed =
-      selectedStock === Number.POSITIVE_INFINITY ? 10 : Math.max(1, selectedStock);
+      selectedStock === Number.POSITIVE_INFINITY
+        ? 10
+        : Math.max(1, selectedStock);
 
     setQuantity(Math.min(Math.max(1, nextValue), maxAllowed));
   };
@@ -313,7 +322,9 @@ const ProductPage = () => {
       return;
     }
 
-    const nextVariant = product.variants.find((variant) => variant.color === color);
+    const nextVariant = product.variants.find(
+      (variant) => variant.color === color,
+    );
     const nextSize =
       nextVariant?.sizes?.find((size) => size.stock > 0)?.size ||
       nextVariant?.sizes?.[0]?.size ||
@@ -375,7 +386,9 @@ const ProductPage = () => {
   const reviewCount = reviews.length || product.reviews?.length || 0;
   const allSizes = sortSizes(getProductSizes(product));
   const availableColors = getProductColors(product);
-  const selectedVariant = product.variants?.find((variant) => variant.color === selectedColor);
+  const selectedVariant = product.variants?.find(
+    (variant) => variant.color === selectedColor,
+  );
   const availableSizesForColor = selectedVariant?.sizes || [];
   const selectedStock = getVariantStock(product, selectedColor, selectedSize);
   const isInStock =
@@ -390,7 +403,9 @@ const ProductPage = () => {
     `${availableColors.length || 1} color option${
       availableColors.length === 1 ? "" : "s"
     } available`,
-    allSizes.length ? `Sizes: ${allSizes.join(", ")}` : "Flexible sizing selection",
+    allSizes.length
+      ? `Sizes: ${allSizes.join(", ")}`
+      : "Flexible sizing selection",
     `${reviewCount} customer review${reviewCount === 1 ? "" : "s"} so far`,
   ];
   const tabItems = [
@@ -529,8 +544,12 @@ const ProductPage = () => {
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-[#746960]">
             <div className="flex items-center gap-2 text-[#d7a033]">
-              <div className="flex items-center gap-1">{renderStarRow(product.rating)}</div>
-              <span className="text-[#5e534c]">{(product.rating || 0).toFixed(1)}</span>
+              <div className="flex items-center gap-1">
+                {renderStarRow(product.rating)}
+              </div>
+              <span className="text-[#5e534c]">
+                {(product.rating || 0).toFixed(1)}
+              </span>
               <span className="text-[#7c7067]">({reviewCount} Reviews)</span>
             </div>
             <span className="hidden h-4 w-px bg-[#ded1c3] sm:block" />
@@ -562,7 +581,9 @@ const ProductPage = () => {
               <div>
                 <div className="flex items-center gap-2 text-base text-[#171312]">
                   <span className="font-semibold">Color:</span>
-                  <span className="text-[#6f635b]">{selectedColor || "Select"}</span>
+                  <span className="text-[#6f635b]">
+                    {selectedColor || "Select"}
+                  </span>
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-3">
@@ -593,16 +614,20 @@ const ProductPage = () => {
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2 text-base text-[#171312]">
                     <span className="font-semibold">Size:</span>
-                    <span className="text-[#6f635b]">{selectedSize || "Select"}</span>
+                    <span className="text-[#6f635b]">
+                      {selectedSize || "Select"}
+                    </span>
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => toast("Choose your usual size for the best fit")}
+                    onClick={() =>
+                      toast("Choose your usual size for the best fit")
+                    }
                     className="inline-flex items-center gap-2 text-sm font-medium text-[#6f635b] transition hover:text-[#171312]"
                   >
                     <Ruler size={16} />
-                    Size Guide
+                    Size
                   </button>
                 </div>
 
@@ -638,7 +663,9 @@ const ProductPage = () => {
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
               <div>
-                <p className="text-base font-semibold text-[#171312]">Quantity</p>
+                <p className="text-base font-semibold text-[#171312]">
+                  Quantity
+                </p>
                 <div className="mt-3 inline-flex items-center overflow-hidden rounded-xl border border-[#e6d8ca] bg-white">
                   <button
                     type="button"
@@ -662,7 +689,9 @@ const ProductPage = () => {
 
               {selectedStock !== Number.POSITIVE_INFINITY && (
                 <div className="rounded-full bg-[#fbf5ef] px-4 py-2 text-sm text-[#7a6f67]">
-                  {selectedStock > 0 ? `${selectedStock} left in stock` : "Currently sold out"}
+                  {selectedStock > 0
+                    ? `${selectedStock} left in stock`
+                    : "Currently sold out"}
                 </div>
               )}
             </div>
@@ -778,7 +807,9 @@ const ProductPage = () => {
                   <p className="text-sm uppercase tracking-[0.2em] text-[#9a6a5a]">
                     Product Code
                   </p>
-                  <p className="mt-2 text-lg font-semibold text-[#171312]">{sku}</p>
+                  <p className="mt-2 text-lg font-semibold text-[#171312]">
+                    {sku}
+                  </p>
                 </div>
               </div>
             )}
@@ -830,7 +861,9 @@ const ProductPage = () => {
                         <select
                           id="review-rating"
                           value={rating}
-                          onChange={(event) => setRating(Number(event.target.value))}
+                          onChange={(event) =>
+                            setRating(Number(event.target.value))
+                          }
                           className="w-full rounded-2xl border border-[#ddd1c6] bg-white px-4 py-3 text-[#171312] outline-none transition focus:border-[#efc9c3]"
                         >
                           <option value={5}>5 - Excellent</option>
@@ -852,7 +885,9 @@ const ProductPage = () => {
                           id="review-title"
                           type="text"
                           value={reviewTitle}
-                          onChange={(event) => setReviewTitle(event.target.value)}
+                          onChange={(event) =>
+                            setReviewTitle(event.target.value)
+                          }
                           placeholder="Review title"
                           className="w-full rounded-2xl border border-[#ddd1c6] bg-white px-4 py-3 text-[#171312] outline-none transition placeholder:text-[#9b9088] focus:border-[#efc9c3]"
                         />
@@ -868,7 +903,9 @@ const ProductPage = () => {
                         <textarea
                           id="review-comment"
                           value={reviewText}
-                          onChange={(event) => setReviewText(event.target.value)}
+                          onChange={(event) =>
+                            setReviewText(event.target.value)
+                          }
                           placeholder="Write your review"
                           rows="4"
                           className="w-full rounded-2xl border border-[#ddd1c6] bg-white px-4 py-3 text-[#171312] outline-none transition placeholder:text-[#9b9088] focus:border-[#efc9c3]"
@@ -927,17 +964,23 @@ const ProductPage = () => {
             {activeTab === "shipping" && (
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-[1.5rem] bg-[#fbf5ef] p-5">
-                  <p className="text-lg font-semibold text-[#171312]">Shipping</p>
+                  <p className="text-lg font-semibold text-[#171312]">
+                    Shipping
+                  </p>
                   <p className="mt-3 text-sm leading-7 text-[#615751]">
-                    Orders over ₹999 qualify for complimentary standard shipping.
-                    Most in-stock items dispatch across India within 1 to 2 business days.
+                    Orders over ₹999 qualify for complimentary standard
+                    shipping. Most in-stock items dispatch across India within 1
+                    to 2 business days.
                   </p>
                 </div>
                 <div className="rounded-[1.5rem] bg-[#fbf5ef] p-5">
-                  <p className="text-lg font-semibold text-[#171312]">Returns</p>
+                  <p className="text-lg font-semibold text-[#171312]">
+                    Returns
+                  </p>
                   <p className="mt-3 text-sm leading-7 text-[#615751]">
                     Returns are accepted within 30 days in original condition.
-                    Reach out to support anytime for fit help or delivery updates.
+                    Reach out to support anytime for fit help or delivery
+                    updates.
                   </p>
                 </div>
               </div>

@@ -129,12 +129,8 @@ const Navbar = () => {
                 onClick={() => navigate("/")}
                 className="flex items-end gap-1 text-left"
               >
-                <span className={`${logoClass} text-[#171312]`}>
-                  Style
-                </span>
-                <span className={`${logoClass} text-[#ef5b5b]`}>
-                  Up.
-                </span>
+                <span className={`${logoClass} text-[#171312]`}>Style</span>
+                <span className={`${logoClass} text-[#ef5b5b]`}>Up.</span>
               </button>
 
               <nav className="hidden min-[1120px]:flex items-center gap-7 text-sm font-semibold text-[#564b45]">
@@ -203,7 +199,7 @@ const Navbar = () => {
                     className="hidden items-center gap-2 rounded-full border border-[#ece2d7] px-4 py-2 text-sm font-semibold text-[#171312] transition hover:border-[#efc8c3] hover:bg-[#fff3f0] lg:flex"
                   >
                     <LogOut size={16} />
-                    Sign Out
+                    Log out
                   </button>
                 )}
 

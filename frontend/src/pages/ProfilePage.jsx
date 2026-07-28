@@ -151,9 +151,7 @@ const ProfilePage = () => {
                 <form onSubmit={handleUpdateProfile} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block font-medium mb-2">
-                        First Name
-                      </label>
+                      <label className="block font-medium mb-2">First</label>
                       <input
                         type="text"
                         value={formData.firstName}
@@ -168,9 +166,7 @@ const ProfilePage = () => {
                     </div>
 
                     <div>
-                      <label className="block font-medium mb-2">
-                        Last Name
-                      </label>
+                      <label className="block font-medium mb-2">Last</label>
                       <input
                         type="text"
                         value={formData.lastName}
