@@ -81,7 +81,7 @@ const Footer = () => {
 
           <div>
             <h3 className="text-sm font-bold uppercase tracking-[0.24em] text-[#f6b7ad]">
-              Contact
+              Reach us
             </h3>
 
             <ul className="mt-5 space-y-4 text-sm text-white/[0.65]">
