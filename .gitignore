@@ -38,3 +38,4 @@ Thumbs.db
 .jetro/cache*.duckdb
 .jetro/mcp-config.json
 .jetro/daemon/credentials.json
+*.pem

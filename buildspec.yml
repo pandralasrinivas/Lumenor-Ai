@@ -1,0 +1,38 @@
+version: 0.2
+
+env:
+  shell: bash
+  variables:
+    NODE_ENV: production
+    CI: "true"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - cd frontend
+      - npm ci
+  pre_build:
+    commands:
+      - npm test -- --watchAll=false --passWithNoTests
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - cd "$CODEBUILD_SRC_DIR"
+      - chmod +x scripts/*.sh
+      - test -f appspec.yml
+      - test -d frontend/build
+
+artifacts:
+  files:
+    - appspec.yml
+    - scripts/**/*
+    - frontend/build/**/*
+  discard-paths: no
+
+cache:
+  paths:
+    - /root/.npm/**/*
