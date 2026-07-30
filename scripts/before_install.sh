@@ -1,12 +1,7 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -e
 
-APP_DIR="${APP_DIR:-/var/www/html}"
+echo "Removing old React files"
 
-if [[ -z "${APP_DIR}" || "${APP_DIR}" == "/" ]]; then
-  echo "Refusing to prepare an empty or root deployment directory."
-  exit 1
-fi
-
-install -d -m 755 "${APP_DIR}"
-find "${APP_DIR}" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+mkdir -p /var/www/react-app
+rm -rf /var/www/react-app/*

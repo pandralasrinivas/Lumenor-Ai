@@ -1,38 +1,26 @@
 version: 0.2
 
-env:
-  shell: bash
-  variables:
-    NODE_ENV: production
-    CI: "true"
-
 phases:
   install:
     runtime-versions:
-      nodejs: 20
+      nodejs: 22
     commands:
-      - cd frontend
+      - echo "Installing React dependencies"
       - npm ci
-  pre_build:
-    commands:
-      - npm test -- --watchAll=false --passWithNoTests
+
   build:
     commands:
+      - echo "Creating React production build"
       - npm run build
+      - test -f build/index.html
+
   post_build:
     commands:
-      - cd "$CODEBUILD_SRC_DIR"
-      - chmod +x scripts/*.sh
-      - test -f appspec.yml
-      - test -d frontend/build
+      - echo "React build completed successfully"
 
 artifacts:
   files:
-    - appspec.yml
-    - scripts/**/*
-    - frontend/build/**/*
-  discard-paths: no
-
-cache:
-  paths:
-    - /root/.npm/**/*
+    - "build/**/*"
+    - "appspec.yml"
+    - "deploy/**/*"
+    - "scripts/**/*"

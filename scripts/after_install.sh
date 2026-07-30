@@ -1,16 +1,20 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -e
 
-APP_DIR="${APP_DIR:-/var/www/html}"
-WEB_USER="${WEB_USER:-www-data}"
+APP_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-if [[ -z "${APP_DIR}" || "${APP_DIR}" == "/" ]]; then
-  echo "Refusing to update permissions for an empty or root deployment directory."
-  exit 1
-fi
+echo "Setting file permissions"
 
-chmod -R u=rwX,go=rX "${APP_DIR}"
+chown -R www-data:www-data /var/www/react-app
+find /var/www/react-app -type d -exec chmod 755 {} \;
+find /var/www/react-app -type f -exec chmod 644 {} \;
 
-if id "${WEB_USER}" >/dev/null 2>&1; then
-  chown -R "${WEB_USER}:${WEB_USER}" "${APP_DIR}"
-fi
+echo "Installing Nginx configuration"
+
+cp "$APP_ROOT/deploy/nginx-react.conf" \
+   /etc/nginx/sites-available/react-app
+
+ln -sfn /etc/nginx/sites-available/react-app \
+        /etc/nginx/sites-enabled/react-app
+
+rm -f /etc/nginx/sites-enabled/default

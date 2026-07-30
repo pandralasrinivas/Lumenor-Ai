@@ -1,13 +1,11 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -e
 
-if ! command -v systemctl >/dev/null 2>&1; then
-  exit 0
-fi
+echo "Checking Nginx configuration"
 
-for service in nginx httpd apache2; do
-  if systemctl is-active --quiet "${service}"; then
-    systemctl reload "${service}" || systemctl restart "${service}"
-    exit 0
-  fi
-done
+nginx -t
+
+echo "Restarting Nginx"
+
+systemctl enable nginx
+systemctl restart nginx
